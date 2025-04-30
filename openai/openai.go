@@ -36,7 +36,7 @@ func GetAIResponse(prompt string) (string, error) {
 			UserMessage,
 			SystemMessage,
 		},
-		ResponseFormat: JsonResponseFomat,
+		// ResponseFormat: JsonResponseFomat,
 	}
 
 	resp, err := OpenAIClient.CreateChatCompletion(context.Background(), req)
