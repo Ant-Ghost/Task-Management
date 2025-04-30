@@ -15,6 +15,12 @@ func CreateTask(task *models.Task) (*models.Task, error) {
 	}
 	return task, nil
 }
+func CreateManyTasks(tasks []models.Task) ([]models.Task, error) {
+	if err := database.DB.Create(&tasks).Error; err != nil {
+		return nil, err
+	}
+	return tasks, nil
+}
 func GetTaskByID(id uint) (*models.Task, error) {
 	var task models.Task
 	if err := database.DB.First(&task, id).Error; err != nil {

@@ -19,7 +19,23 @@ func CreateTask(c *gin.Context) {
 		return
 	}
 
-	task, err := services.CreateTask(input)
+	currentUserId, exists := c.Get("userId")
+	if !exists {
+		utils.ErrorResponseFormatter(
+			c, http.StatusUnauthorized, "User not authenticated", nil,
+		)
+		return
+	}
+
+	currentUserIdUint, ok := currentUserId.(uint)
+	if !ok {
+		utils.ErrorResponseFormatter(
+			c, http.StatusInternalServerError, "Invalid user ID", nil,
+		)
+		return
+	}
+
+	task, err := services.CreateTask(input, &currentUserIdUint)
 	if err != nil {
 		utils.ErrorResponseFormatter(
 			c, http.StatusInternalServerError, "Failed to create task", err,

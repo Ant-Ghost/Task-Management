@@ -17,9 +17,11 @@ func RegisterUser(input dtos.RegisterUserRequest) (*models.User, error) {
 
 	// Create a new user instance
 	user := &models.User{
-		Username: input.Username,
-		Email:    input.Email,
-		Password: hashedPassword,
+		Username:   input.Username,
+		Email:      input.Email,
+		Password:   hashedPassword,
+		SlackID:    input.SlackID,
+		Experience: input.Experience,
 	}
 
 	return repository.CreateUser(user)
@@ -54,6 +56,12 @@ func UpdateUser(id uint, input dtos.UpdateUserRequest) (*models.User, error) {
 	}
 	if input.Email != "" {
 		user.Email = input.Email
+	}
+	if input.SlackID != "" {
+		user.SlackID = input.SlackID
+	}
+	if input.Experience != nil {
+		user.Experience = *(input.Experience)
 	}
 
 	return repository.UpdateUser(user)

@@ -5,6 +5,7 @@ import (
 	"zocket/task_manager/database"
 	"zocket/task_manager/middlewares"
 	"zocket/task_manager/openai"
+	"zocket/task_manager/slack"
 	"zocket/task_manager/websocket"
 
 	"log"
@@ -28,6 +29,7 @@ func main() {
 	database.ConnectDatabase()
 
 	openai.InitOpenAIClient()
+	slack.InitiateSlack()
 
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "Connected to Task Manager API")

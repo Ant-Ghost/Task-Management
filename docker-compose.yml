@@ -17,6 +17,7 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      SLACK_API_TOKEN: ${SLACK_API_TOKEN}
     depends_on:
       - postgres
     command: ["./wait-for-it.sh", "postgres:5432", "--", "./app"]
